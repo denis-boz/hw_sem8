@@ -82,6 +82,7 @@ void ChangedMatrix(int[,] array)
 Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 */
 
+/*
 Console.Write("Введите количество строк: ");
 int rows = Convert.ToInt32(Console.ReadLine());
 
@@ -145,3 +146,109 @@ minSum = i+1;
 }
 }
 Console.WriteLine($"Строка c наименьшей суммой элементов: {minSum}");
+*/
+
+
+/*
+Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+Например, даны 2 матрицы:
+2 4 | 3 4
+3 2 | 3 3
+Результирующая матрица будет:
+18 20
+15 18
+*/
+
+Console.Write("Введите количество строк первой матрицы: ");
+int firstRows = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Введите количество столбцов первой матрицы: ");
+int firstColumns = Convert.ToInt32(Console.ReadLine());
+
+int[,] resultFirstMatrix = GetFirstMatrix(firstRows, firstColumns, 0, 10);
+PrintFirstMatrix(resultFirstMatrix);
+
+int[,] GetFirstMatrix(int m, int n, int min, int max)
+{
+    int[,] firstMatrix = new int[m, n];
+    for (int i = 0; i < firstMatrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < firstMatrix.GetLength(1); j++)
+        {
+
+            firstMatrix[i, j] = new Random().Next(min, max + 1);
+
+        }
+    }
+    return firstMatrix;
+}
+
+void PrintFirstMatrix(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            Console.Write(array[i, j] + "\t");
+        }
+        Console.WriteLine();
+    }
+}
+
+Console.Write("Введите количество строк второй матрицы: ");
+int secondRows = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Введите количество столбцов второй матрицы: ");
+int secondColumns = Convert.ToInt32(Console.ReadLine());
+if (firstColumns != secondRows)    //Чтобы можно было умножить две матрицы, количество столбцов первой матрицы 
+{                                  //должно быть равно количеству строк второй матрицы.
+    Console.WriteLine("Error");
+    return;
+}
+
+int[,] resultSecondMatrix = GetSecondMatrix(secondRows, secondColumns, 0, 10);
+PrintSecondMatrix(resultSecondMatrix);
+
+int[,] GetSecondMatrix(int m, int n, int min, int max)
+{
+    int[,] secondMatrix = new int[m, n];
+    for (int i = 0; i < secondMatrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < secondMatrix.GetLength(1); j++)
+        {
+
+            secondMatrix[i, j] = new Random().Next(min, max + 1);
+
+        }
+    }
+    return secondMatrix;
+}
+
+void PrintSecondMatrix(int[,] arr)
+{
+    for (int i = 0; i < arr.GetLength(0); i++)
+    {
+        for (int j = 0; j < arr.GetLength(1); j++)
+        {
+            Console.Write(arr[i, j] + "\t");
+        }
+        Console.WriteLine();
+    }
+}
+
+int GetMatrixProduct(int[,] matrixA, int[,] matrixB)
+{
+    int[,] matrixC = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
+
+    for (int i = 0; i < matrixA.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrixB.GetLength(1); j++)
+        {
+            for (int k = 0; k < matrixA.GetLength(0); k++)
+            {
+                matrixC [i, j] += matrixA[i, k] * matrixB[k, j];
+            }
+        }
+    }
+    return matrixC;
+}
